@@ -20,7 +20,7 @@ Run `buildall.sh` with `--clean` to clean the build directories before building.
 
 Building for just 32-bit ARM (which is the default) is fine generally.
 However if you want to make use of AArch64 or are targeting Intel x86 devices,
-these architectures can be optionally be built into the same APK.
+these architectures can be optionally be built into the same AAR.
 
 To do this run one (or both) of these commands **before** ./buildall.sh:
 ```
@@ -47,13 +47,6 @@ If you've made changes to a single component (e.g. ffmpeg or mpv) and want a new
 ```
 
 Note that you might need to be rebuild for other architectures (`--arch`) too depending on your device.
-
-Afterwards, build mpv-android and install the apk:
-
-```
-./buildall.sh --no-deps
-adb install -r ../app/build/outputs/apk/debug/app-debug.apk
-```
 
 ## Using Android Studio
 
@@ -82,17 +75,7 @@ NDK_DEBUG=1 ./buildall.sh --no-deps
 adb install -r ../app/build/outputs/apk/debug/app-debug.apk
 ```
 
-After that, ndk-gdb can be used to debug the app:
-
-```
-cd mpv-android/app/src/main/
-../../../buildscripts/sdk/android-ndk-r*/ndk-gdb --launch
-```
-
 # Credits, notes, etc
-
-Travis will create prebuilt prefixes whenever needed, see `build_prefix()` in `.travis.sh`.
-These prefixes contain everything except mpv built for `armv7l` and are uploaded [here](https://github.com/mpv-android/prebuilt-prefixes/releases).
 
 These build scripts were created by @sfan5, thanks!
 

@@ -2,7 +2,6 @@
 
 . ./include/depinfo.sh
 
-[ -z "$TRAVIS" ] && TRAVIS=0
 [ -z "$WGET" ] && WGET=wget
 
 mkdir -p deps && cd deps
@@ -20,7 +19,7 @@ fi
 # ffmpeg
 if [ ! -d ffmpeg ]; then
 	git clone https://github.com/FFmpeg/FFmpeg ffmpeg
-	[ $TRAVIS -eq 1 ] && ( cd ffmpeg; git checkout $v_travis_ffmpeg )
+	[ $b_master -eq 0 ] && ( cd ffmpeg; git checkout $v_ffmpeg )
 fi
 
 # freetype2
@@ -51,6 +50,9 @@ if [ ! -d lua ]; then
 fi
 
 # mpv
-[ ! -d mpv ] && git clone https://github.com/mpv-player/mpv
+if [ ! -d mpv ]; then
+	git clone https://github.com/mpv-player/mpv mpv
+	[ $b_master -eq 0 ] && ( cd mpv; git checkout $v_libmpv )
+fi
 
 cd ..
